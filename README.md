@@ -13,3 +13,4 @@ If you are developing a production application, we recommend using TypeScript wi
 "# cicdproject_frontend" 
 "# cicdproject_frontend" 
 "# Job-craft-frontend" 
+"# Job-craft-frontend" 
