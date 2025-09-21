@@ -1,51 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../home.css";
 import "../jobseeker.css";
-import { useNavigate, Link } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
-
-const slides = [
-  { image: "/components/image1.png" },
-  { image: "/components/image2.png" },
-  { image: "/components/image3.png" }
-];
-
-const HeroCarousel = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000
-  };
-
-  return (
-    <div className="hero-carousel">
-      <Slider {...settings}>
-        {slides.map((slide, index) => (
-          <div key={index} className="carousel-slide">
-            <img
-              src={slide.image}
-              alt={`Slide ${index + 1}`}
-              className="carousel-image"
-            />
-            {/* Optional overlay content */}
-          </div>
-        ))}
-      </Slider>
-    </div>
-  );
-};
-
+import { Link } from "react-router-dom";
 
 const JobSeeker = () => {
-  const [achievements, setAchievements] = useState([]);
-  const [resumeFile, setResumeFile] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -57,7 +15,6 @@ const JobSeeker = () => {
       type: "Contract Base",
       location: "Australia",
       salary: "$30K–$35K",
-      daysRemaining: "4 Days Remaining",
       logo: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
     },
     {
@@ -67,7 +24,6 @@ const JobSeeker = () => {
       type: "Full Time",
       location: "China",
       salary: "$50K–$60K",
-      daysRemaining: "4 Days Remaining",
       logo: "https://cdn-icons-png.flaticon.com/512/888/888857.png",
     },
     {
@@ -77,8 +33,7 @@ const JobSeeker = () => {
       type: "Remote",
       location: "USA",
       salary: "$45K–$55K",
-      daysRemaining: "6 Days Remaining",
-      logo: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png", // YouTube
+      logo: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
     },
     {
       id: 4,
@@ -87,10 +42,8 @@ const JobSeeker = () => {
       type: "Full Time",
       location: "USA",
       salary: "$80K–$95K",
-      daysRemaining: "3 Days Remaining",
-      logo: "https://cdn-icons-png.flaticon.com/512/732/732221.png", // Microsoft
+      logo: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
     },
-
   ];
 
   const trends = [
@@ -150,27 +103,26 @@ const JobSeeker = () => {
         <div className="logo">Job Craft</div>
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Upload Resume</a></li>
+            <li><Link to="/jobseeker">Home</Link></li>
+            <li><Link to="/applications">Available Jobs</Link></li>
+            <li><Link to="/AppliedJobs">Applied Jobs</Link></li>
+
+
+            {/* <li><a href="#">Upload Resume</a></li> */}
             <li className="dropdown" ref={dropdownRef}>
               <span className="profile-icon" onClick={toggleDropdown}>👤 Profile</span>
               {showDropdown && (
                 <div className="dropdown-content">
                   <Link to="/manage-profile">Manage Profile</Link>
-                  <a href="#">Saved Jobs</a>
-                  <a href="#">Applied Jobs</a>
-                  <a href="#">Account Settings</a>
-                  <a href="#" onClick={signOut}>Sign Out</a>
+                  <a href="/AppliedJobs">Applied Jobs</a>
+                  <a href="/AccountSettings">Account Settings</a>
+                  <a href="/" onClick={signOut}>Sign Out</a>
                 </div>
               )}
             </li>
           </ul>
         </nav>
       </header>
-
-      {/* Hero Carousel Section */}
-      <HeroCarousel />
 
       {/* Hero Section */}
       <section className="hero">
@@ -185,7 +137,8 @@ const JobSeeker = () => {
             <div className="search-box">
               <input type="text" placeholder="Job title, Keyword..." />
               <input type="text" placeholder="Your Location" />
-              <button>Find Job</button>
+              <button><Link to="/applications">Find Jobs</Link> </button>
+
             </div>
 
             <p className="suggestions">
@@ -222,63 +175,65 @@ const JobSeeker = () => {
         </div>
       </section>
 
+      {/* Featured Jobs */}
       <section className="featured-jobs">
-  <h2 className="section-title">Featured Jobs Circulars</h2>
+        <h2 className="section-title">Featured Jobs Circulars</h2>
 
-  <div className="filter-sort">
-    <select>
-      <option>Trending</option>
-      <option>Newest</option>
-      <option>High Salary</option>
-    </select>
-  </div>
-
-  <div className="jobs-grid">
-    {jobs.map((job) => (
-      <div className="job-card-modern" key={job.id}>
-        <div className="job-tags">
-          <span className="tag">{job.type}</span>
-          <span className="tag">{job.location}</span>
+        <div className="filter-sort">
+          <select>
+            <option>Trending</option>
+            <option>Newest</option>
+            <option>High Salary</option>
+          </select>
         </div>
 
-        <div className="job-info">
-          <img src={job.logo} alt={`${job.company} logo`} className="job-logo" />
-          <div>
-            <h3 className="job-title">{job.title}</h3>
-            <p className="job-company">{job.company}</p>
-            <p className="job-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat nunc ac a magna at elementum.</p>
-          </div>
+        <div className="jobs-grid">
+          {jobs.map((job) => (
+            <div className="job-card-modern" key={job.id}>
+              <div className="job-tags">
+                <span className="tag">{job.type}</span>
+                <span className="tag">{job.location}</span>
+              </div>
+
+              <div className="job-info">
+                <img src={job.logo} alt={`${job.company} logo`} className="job-logo" />
+                <div>
+                  <h3 className="job-title">{job.title}</h3>
+                  <p className="job-company">{job.company}</p>
+                  <p className="job-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat nunc ac a magna at elementum.</p>
+                </div>
+              </div>
+
+              <div className="job-meta-modern">
+                <span>🕒 05 hours ago</span>
+                <span>💰 {job.salary}</span>
+              </div>
+
+              <button className="apply-button">Apply for this Job</button>
+            </div>
+          ))}
         </div>
 
-        <div className="job-meta-modern">
-          <span>🕒 05 hours ago</span>
-          <span>💰 {job.salary}</span>
+        <div className="load-more-container">
+          <button className="load-more-button">Load More Jobs</button>
         </div>
+      </section>
 
-        <button className="apply-button">Apply for this Job</button>
-      </div>
-    ))}
-  </div>
-<br></br>
-  <div className="load-more-container">
-    <button className="load-more-button">Load More Jobs</button>
-  </div>
-</section>
+      {/* Career Trends */}
+      <section className="career-trends">
+        <h2 className="section-title">Career Insights & Market Trends</h2>
+        <div className="trends-grid">
+          {trends.map((trend) => (
+            <div key={trend.id} className="trend-card">
+              <div className="trend-icon">{trend.icon}</div>
+              <h3>{trend.title}</h3>
+              <h4>{trend.stat}</h4>
+              <p>{trend.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-<section className="career-trends">
-  <h2 className="section-title">Career Insights & Market Trends</h2>
-  <div className="trends-grid">
-    {trends.map((trend) => (
-      <div key={trend.id} className="trend-card">
-        <div className="trend-icon">{trend.icon}</div>
-        <h3>{trend.title}</h3>
-        <h4>{trend.stat}</h4>
-        <p>{trend.description}</p>
-      </div>
-    ))}
-  </div>
-</section>
-  
       {/* Footer */}
       <footer>
         <div className="footer-content">

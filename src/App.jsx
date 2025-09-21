@@ -8,6 +8,9 @@ import ManageProfile from "./pages/ManageProfile";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import AdminDashboard from "./pages/admin"; 
 import ContactUs from "./pages/contactus";
+import Applications from "./pages/Applications";
+import AppliedJobs from "./pages/AppliedJobs";
+import AccountSettings from "./pages/AccountSettings";
 
 const App = () => {
   return (
@@ -20,7 +23,14 @@ const App = () => {
         <Route path="/jobseeker" element={<JobSeeker />} />
         <Route path="/manage-profile" element={<ManageProfile />} />
         <Route path="/recruiter" element={<RecruiterDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} /> {/* ✅ Admin route */}
+        <Route path="/admin" element={<AdminDashboard />} /> 
+        <Route path="/applications" element={<Applications />} />
+        <Route path="/AppliedJobs" element={<AppliedJobs />} />
+
+        <Route path="/AccountSettings" element={<AccountSettings />} />
+
+
+ 
       </Routes>
     </Router>
   );

@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import "../contactus.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:2005/api/contact/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.text();
+      alert(data); // Show backend message
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      alert("Error submitting message: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       {/* Header */}
@@ -40,30 +68,58 @@ const ContactUs = () => {
               boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
             }}>
               <h3 style={{ marginBottom: "1rem" }}>Send us a Message</h3>
-              <form>
-                <input type="text" placeholder="Your Name" required style={{
-                  width: "100%", padding: "10px", marginBottom: "1rem",
-                  borderRadius: "5px", border: "1px solid #ccc"
-                }} />
-                <input type="email" placeholder="Your Email" required style={{
-                  width: "100%", padding: "10px", marginBottom: "1rem",
-                  borderRadius: "5px", border: "1px solid #ccc"
-                }} />
-                <textarea placeholder="Your Message" required style={{
-                  width: "100%", padding: "10px", marginBottom: "1rem",
-                  borderRadius: "5px", border: "1px solid #ccc", height: "120px"
-                }}></textarea>
-                <button type="submit" style={{
-                  padding: "10px 20px",
-                  border: "none",
-                  borderRadius: "5px",
-                  backgroundColor: "#0033cc",
-                  color: "#fff",
-                  fontWeight: "bold",
-                  cursor: "pointer"
-                }}>
-                  Submit
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    width: "100%", padding: "10px", marginBottom: "1rem",
+                    borderRadius: "5px", border: "1px solid #ccc"
+                  }}
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    width: "100%", padding: "10px", marginBottom: "1rem",
+                    borderRadius: "5px", border: "1px solid #ccc"
+                  }}
+                />
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    width: "100%", padding: "10px", marginBottom: "1rem",
+                    borderRadius: "5px", border: "1px solid #ccc", height: "120px"
+                  }}
+                ></textarea>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  style={{
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    backgroundColor: "#0033cc",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    cursor: "pointer"
+                  }}
+                >
+                  {loading ? "Submitting..." : "Submit"}
                 </button>
+               
               </form>
             </div>
 
