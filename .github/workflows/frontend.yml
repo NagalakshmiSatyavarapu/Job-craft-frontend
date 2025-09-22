@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend CI/CD
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
-    name: Build & Test Frontend
+    name: Build, Test & Deploy Frontend
 
     steps:
       - name: Checkout code
@@ -38,3 +38,5 @@ jobs:
 
       - name: Build React app
         run: npm run build
+
+      - name: Deploy to GitHub Page
