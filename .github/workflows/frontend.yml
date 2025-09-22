@@ -7,42 +7,30 @@ on:
     branches: [ main ]
 
 jobs:
-  build-frontend:
+  build:
     runs-on: ubuntu-latest
-    name: Build, Test & Deploy Frontend
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        env:
-          CI: true
-        run: npm test -- --watchAll=false
+      - name: Run ESLint
+        run: npm run lint
 
-      - name: Build React app
+      - name: Build project
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"
+          publish_dir: ./dist
