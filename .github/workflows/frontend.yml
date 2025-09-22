@@ -6,10 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write   # ✅ allow GitHub Actions to push to gh-pages
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
