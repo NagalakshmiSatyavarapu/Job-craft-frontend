@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+  "build": "vite build",
+  "preview": "vite preview",
+  "lint": "eslint .",
+  "test": "echo \"No tests defined\""
+    
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
