@@ -11,6 +11,14 @@ import ContactUs from "./pages/contactus";
 import Applications from "./pages/Applications";
 import AppliedJobs from "./pages/AppliedJobs";
 import AccountSettings from "./pages/AccountSettings";
+import EmployersPage from "./pages/EmployersPage";
+import CandidatesPage from "./pages/CandidatesPage";
+import JobListingsPage from "./pages/JoblistingsPage";
+import InterviewsPage from "./pages/InterviewsPage";
+import ReportsPage from "./pages/ReportsPage";
+import ShortlistingPage from "./pages/ShortlistingsPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import AdminSettingsPage from "./pages/AdminSettingsPage";
 
 const App = () => {
   return (
@@ -26,11 +34,17 @@ const App = () => {
         <Route path="/admin" element={<AdminDashboard />} /> 
         <Route path="/applications" element={<Applications />} />
         <Route path="/AppliedJobs" element={<AppliedJobs />} />
-
+        <Route path="/employers" element={<EmployersPage />} />
+         <Route path="/candidates" element={<CandidatesPage /> }/>
         <Route path="/AccountSettings" element={<AccountSettings />} />
-
-
- 
+        <Route path="/job-listings" element={<JobListingsPage />} />
+        {/* <Route path="/applications" element={<ApplicationsPage />} /> */}
+        <Route path="/shortlisting" element={<ShortlistingPage />} />
+        <Route path="/interviews" element={<InterviewsPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/admin-settings" element={<AdminSettingsPage />} />
+    
       </Routes>
     </Router>
   );

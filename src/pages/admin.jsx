@@ -1,7 +1,7 @@
-// admin.jsx
-
+// AdminDashboard.jsx
 import React, { useState } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
   PieChart,
   Pie,
@@ -51,6 +51,20 @@ const AdminDashboard = () => {
 
   const jobColors = ["#f77f00", "#003049"];
 
+  // Sidebar items with routes
+  const sidebarItems = [
+    { label: "Dashboard", icon: "🏠", path: "/admin" },
+    { label: "Manage Employers", icon: "🏢", path: "/employers" },
+    { label: "Manage Candidates", icon: "👤", path: "/candidates" },
+    { label: "Job Listings", icon: "📄", path: "/job-listings" },
+    // { label: "Applications", icon: "📥", path: "/applications" },
+    { label: "Shortlisting", icon: "✅", path: "/shortlisting" },
+    { label: "Interviews", icon: "🎤", path: "/interviews" },
+    { label: "Reports", icon: "📊", path: "/reports" },
+    { label: "Notifications", icon: "🔔", path: "/notifications" },
+    { label: "Settings", icon: "⚙", path: "/settings", bigIcon: true },
+  ];
+
   return (
     <div style={{ display: "flex", height: "100vh", fontFamily: "Arial, sans-serif" }}>
       {/* Sidebar */}
@@ -82,40 +96,25 @@ const AdminDashboard = () => {
         </button>
 
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {[
-            { label: "Dashboard", icon: "🏠" },
-            { label: "Manage Employers", icon: "🏢" },
-            { label: "Manage Candidates", icon: "👤" },
-            { label: "Job Listings", icon: "📄" },
-            { label: "Applications", icon: "📥" },
-            { label: "Shortlisting", icon: "✅" },
-            { label: "Interviews", icon: "🎤" },
-            { label: "Reports", icon: "📊" },
-            { label: "Notifications", icon: "🔔" },
-            { label: "Settings", icon: "⚙", bigIcon: true },
-          ].map((item, i) => (
-            <li
-              key={i}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "10px 20px",
-                cursor: "pointer",
-                transition: "background 0.2s",
-                borderBottom: "1px solid #3c4b52",
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.background = "#3c4b52")}
-              onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {sidebarItems.map((item, i) => (
+            <li key={i} style={{ padding: "10px 20px" }}>
+              <Link
+                to={item.path}
+                style={{
+                  color: "#fff",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
                 <span style={{ fontSize: item.bigIcon ? "32px" : "16px" }}>{item.icon}</span>
-                {!isCollapsed && <span>{item.label}</span>}
-              </div>
-              {!isCollapsed && <span style={{ fontSize: "14px" }}>›</span>}
+                {!isCollapsed && item.label}
+              </Link>
             </li>
           ))}
 
+          {/* Logout */}
           <li
             style={{
               padding: "10px 20px",
