@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Job-craft-frontend/',   // 👈 EXACT repo name, with capital J
+  base: '/job-craft-frontend/',   // 👈 EXACT repo name, with capital J
 })
