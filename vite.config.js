@@ -1,5 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/job-craft-frontend/',   // <--- repo name
-});
+  plugins: [react()],
+  base: '/Job-craft-frontend/',   // 👈 EXACT repo name, with capital J
+})
